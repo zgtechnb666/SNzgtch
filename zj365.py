@@ -8,10 +8,10 @@ cron 0 7 * * *
 v1.0
 '''
 
-import datetime
+import time
 from lib2to3.pygram import python_grammar_no_print_and_exec_statement
 import os
-import time
+
 import random
 import base64
 import requests
@@ -19,11 +19,8 @@ import hashlib
 import uuid
 import json
 
-now = str(round(time.time()*1000))
-kami=""
 cookies= os.getenv("zj365ck")
-ua = "com.ss.android.article.news/9360 (Linux; U; Android 12; zh_CN_#Hans; BRQ-AN00; Build/HUAWEIBRQ-AN00; Cronet/TTNetVersion:85102f3e 2023-06-05 QuicVersion:4ad3af5d 2023-05-09)"
-num=30 #循环参数
+
 
 
 
@@ -68,7 +65,11 @@ class DY:
 
     def luckdraw(self):
         url = f"https://dc.zhongjian365.com/api/activity_clockin/luckyDraw"
-        payload = '{"to_day":"2023-07-21"}'
+        
+        now = time.strftime("%Y-%m-%d",time.localtime(time.time()))
+        print(f"成功获取当前时间:{now}")
+        payload = {"to_day":now}
+        payload = json.dumps(payload)
         headers = {
            'X-Auth-Key': self.cookie,
            'xweb_xhr': '1',
